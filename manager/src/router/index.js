@@ -2,6 +2,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueResource from "vue-resource";
 
 //内容组件跳转import
 import HelloWorld from '@/components/HelloWorld'
@@ -10,9 +11,11 @@ import newProject from '@/components/newProject'
 import Login from '@/components/Login'
 import ProjectDetail from '@/components/ProjectDetail'
 import ImportRule from '@/components/ImportRule'
+import RuleGenerateTestCase from '@/components/RuleGenerateTestCase'
 
 //表明Vue使用router
 Vue.use(Router);
+Vue.use(VueResource);
 
 export default new Router({
   routes: [
@@ -45,6 +48,11 @@ export default new Router({
       path:'/ImportRule',
       name:'ImportRule',
       component: ImportRule
+    },
+    {
+      path:'/RuleGenerateTestCase',
+      name:'RuleGenerateTestCase',
+      component: RuleGenerateTestCase
     },
 
   ]
