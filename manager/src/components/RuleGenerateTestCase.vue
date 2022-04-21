@@ -42,33 +42,58 @@
           </el-row>
         <el-table
           id="showScore_table"
-          :data="studentScore"
+          :data="testRule"
           stripe
           style="width: 100%">
           <el-table-column
-            prop="studentId"
-            label="规则编号"
-            width="180">
+            prop="systemVersion"
+            label="系统"
+            width="100">
           </el-table-column>
           <el-table-column
-            prop="studentName"
-            label="交易"
-            width="180">
+            prop="tradeName"
+            label="交易名称"
+            width="100">
           </el-table-column>
           <el-table-column
-            prop="chineseScore"
-            label="规则1"
-            width="180">
+            prop="tradeCode"
+            label="交易码"
+            width="100">
           </el-table-column>
           <el-table-column
-            prop="mathScore"
-            label="输入"
-            width="180">
+            prop="ruleDescribe"
+            label="规则描述"
+            width="100">
           </el-table-column>
           <el-table-column
-            prop="englishScore"
-            label="期望"
-            width="180">
+            prop="ioIteam"
+            label="输入输出项"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="outputEffective"
+            label="输出有效性"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="testNumber"
+            label="测试覆盖编号"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="testCovItem"
+            label="测试覆盖项(TCI)"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="designName"
+            label="设计者"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="submitTime"
+            label="提交时间"
+            width="100">
           </el-table-column>
         </el-table>
       </el-main>
