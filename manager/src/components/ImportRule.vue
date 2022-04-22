@@ -190,6 +190,26 @@ export default {
 
     uploadFile() {
       var file = this.fileTemp;
+      /*
+      //落数据库
+      let that = this;
+      var ip = this.$serverIp + "CaseCreate";//修改相应的接口
+      var data = this.tableData;
+      console.log(data)
+      this.$axios
+        .post(ip, data)
+        .then(function (res) {
+          console.log(res);
+          if (res.status == 200) {
+            that.$message.success("上传成功!");
+          }
+        })
+        .catch(function (err) {
+          that.$message.error("网络请求异常!");
+        });
+       */
+
+      //保存excel文件
       if (file == null) {
         this.$message({
           type: "warning",
@@ -208,7 +228,7 @@ export default {
       let that = this;
       var ip = this.$serverIp + "uploadPICTDoc";
       this.$axios
-        .post(ip, data, {  //0:代表PICT，1：代表Graphwalker
+        .post(ip, data, { 
           header: {
             "Content-Type": "multipart/form-data",
           },
@@ -218,11 +238,7 @@ export default {
           if (res.status == 200) {
             that.$message.success("上传成功!");
           }
-          /*
-          if (res.data.result == "ok") {
-            that.$message.success("上传成功!");
-          }
-          */
+        
         })
         .catch(function (err) {
           that.$message.error("网络请求异常!");
