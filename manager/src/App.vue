@@ -1,13 +1,26 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <!--展示路由组件-->
+     <el-header style="text-align: right; font-size: 12px">
+        <span style="height=70px">管理系统</span>
+        <el-dropdown>
+          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>查看</el-dropdown-item>
+            <el-dropdown-item>新增</el-dropdown-item>
+            <el-dropdown-item>删除</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <span>王小虎</span>
+      </el-header>
     <el-container>
       <el-aside width="200px"  style="background-color: rgb(68, 100, 140)">
         <!--:default-openeds="['1', '2', '3']"-->
+        
       <el-menu
         default-active="this.$route.path"
         router
-        class="el-menu-vertical-demo"  
+        class="left-menu"  
         background-color="#44648C"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -34,8 +47,8 @@
         <el-submenu index="3">
           <template slot="title"><i class="el-icon-setting"></i>用例平台</template>
           <el-menu-item-group>
-            <el-menu-item index="/ImportRule">用例生成平台</el-menu-item>
-            <el-menu-item index="3-2">我的信息</el-menu-item>
+            <el-menu-item index="/ImportRule">规则库导入</el-menu-item>
+            <el-menu-item index="/GraphwalkerImport">Graphwalker用例生成</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -50,18 +63,7 @@
       </el-aside>
 
  <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <span style="height=250">管理系统</span>
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header>
+     
    
       <!-- 跳转标签 -->
       <router-view />
@@ -103,4 +105,8 @@ export default {
   color: #333;
   line-height: 60px;
 }
+
+.left-menu{
+    height: 100vh;
+  }
 </style>

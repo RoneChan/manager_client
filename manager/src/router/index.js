@@ -10,6 +10,7 @@ import newProject from '@/components/newProject'
 import Login from '@/components/Login'
 import ProjectDetail from '@/components/ProjectDetail'
 import ImportRule from '@/components/ImportRule'
+import GraphwalkerImport from '@/components/GraphwalkerImport'
 
 //表明Vue使用router
 Vue.use(Router);
@@ -45,6 +46,10 @@ export default new Router({
       path:'/ImportRule',
       name:'ImportRule',
       component: ImportRule
+    },  {
+      path:'/GraphwalkerImport',
+      name:'GraphwalkerImport',
+      component: GraphwalkerImport
     },
 
   ]

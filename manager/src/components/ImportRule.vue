@@ -15,22 +15,27 @@
       <div slot="tip" class="el-upload__tip">只 能 上 传 xlsx / xls 文 件</div>
     </el-upload>
     <el-button size="small" type="primary" @click="uploadFile">上传</el-button>
-    <el-table :data="tableData" stripe border height="600">
-      <el-table-column prop="name" label="交易名称" width="120">
-      </el-table-column>
-      <el-table-column prop="tradecode" label="交易码" width="120">
-      </el-table-column>
-      <el-table-column prop="describe" label="规则描述" width="150">
-      </el-table-column>
-      <el-table-column prop="type" label="测试规则类型" width="80">
-      </el-table-column>
-      <el-table-column prop="scene" label="输入项或输出项" width="300">
-      </el-table-column>
-      <el-table-column prop="validity" label="输入输出有效性" width="100">
-      </el-table-column>
-      <el-table-column prop="tci" label="测试覆盖项(TCI)" width="400">
-      </el-table-column>
+    
+    <el-button size="small" type="primary" @click="caseCreate">用例生成</el-button>
 
+    
+
+    <el-table :data="tableData" stripe border height="600">
+      <el-table-column prop="tradeName" label="交易名称" min-width="8%">
+      </el-table-column>
+      <el-table-column prop="tradeCode" label="交易码" min-width="5%">
+      </el-table-column>
+      <el-table-column prop="ruleDescribe" label="规则描述" min-width="15%">
+      </el-table-column>
+      <el-table-column prop="ruleType" label="测试规则类型" min-width="7%">
+      </el-table-column>
+      <el-table-column prop="ioIteam" label="输入项或输出项" min-width="30%">
+      </el-table-column>
+      <el-table-column prop="outputEffective" label="输入输出有效性" min-width="5%">
+      </el-table-column>
+      <el-table-column prop="testCovItem" label="测试覆盖项(TCI)" min-width="30%">
+      </el-table-column>
+<!--
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
@@ -38,6 +43,7 @@
           >
         </template>
       </el-table-column>
+      -->
     </el-table>
   </el-main>
 </template>
@@ -73,6 +79,20 @@ export default {
     handleRemove(file, fileList) {
       this.fileTemp = null;
     },
+
+    formatDate(numb, format) {
+      const time = new Date((numb - 1) * 24 * 3600000 + 1)
+      time.setYear(time.getFullYear() - 70)
+      const year = time.getFullYear() + ''
+      const month = time.getMonth() + 1 + ''
+      const date = time.getDate() - 1 + ''
+      console.log("time:",numb,year);
+      if (format && format.length === 1) {
+        return year + format + month + format + date
+      }
+      return year + (month < 10 ? '0' + month : month) + (date < 10 ? '0' + date : date)
+    },
+
     importExcelData(obj) {
       let _this = this;
       // 通过DOM取文件数据
@@ -97,10 +117,12 @@ export default {
             wb = XLSX.read(btoa(fixdata(binary)), {
               //手动转化
               type: "base64",
+             // cellDates: true,
             });
           } else {
             wb = XLSX.read(binary, {
               type: "binary",
+             // cellDates: true,
             });
           }
           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[1]]); //outdata为excel的数据
@@ -109,18 +131,28 @@ export default {
           //处理数据，处理key的值
           for (var i = 1; i < outdata.length; i++) {
             var data = {};
-            data["name"] = outdata[i].__EMPTY;
-            data["tradecode"] = outdata[i].__EMPTY_1;
-            data["describe"] = outdata[i].__EMPTY_3;
-            data["type"] = outdata[i].__EMPTY_4;
-            data["scene"] = outdata[i].__EMPTY_5;
-            data["validity"] = outdata[i].__EMPTY_6;
-            data["tci"] = outdata[i].__EMPTY_9;
+            data["systemVersion"] ="";
+            data["tradeName"] = outdata[i].__EMPTY;
+            data["tradeCode"] = outdata[i].__EMPTY_1;
+            data["testCharacter"]=outdata[i].__EMPTY_2;
+            data["ruleDescribe"] = outdata[i].__EMPTY_3;
+            data["ruleType"] = outdata[i].__EMPTY_4;
+            data["ioIteam"] = outdata[i].__EMPTY_5;
+            data["outputEffective"] = outdata[i].__EMPTY_6;
+            data["equivalenceClass"] = outdata[i].__EMPTY_7;
+            data["testNumber"] = outdata[i].__EMPTY_8;
+            data["testCovItem"] = outdata[i].__EMPTY_9;
+            data["ruleRepresentation"] = outdata[i].__EMPTY_10;
+            data["caseNumber"] = outdata[i].__EMPTY_11;
+            data["designName"] = outdata[i].__EMPTY_12;
+            var date = _this.formatDate(outdata[i].__EMPTY_13,"-");
+             data["submitTime"] = date;
+
             excelData.push(data);
           }
+          console.log(outdata,excelData,)
 
           _this.tableData = excelData;
-          _this.tableLoading = true;
           //console.log(_this.tableData);
           return excelData;
         };
@@ -132,6 +164,30 @@ export default {
         reader.readAsBinaryString(f);
       }
     },
+    caseCreate(){
+      
+      let that = this;
+      var ip = this.$serverIp + "CaseCreate";
+      var data = this.tableData;
+      console.log(data)
+      this.$axios
+        .post(ip, data)
+        .then(function (res) {
+          console.log(res);
+          if (res.status == 200) {
+            that.$message.success("上传成功!");
+          }
+          /*
+          if (res.data.result == "ok") {
+            that.$message.success("上传成功!");
+          }
+          */
+        })
+        .catch(function (err) {
+          that.$message.error("网络请求异常!");
+        });
+    },
+
     uploadFile() {
       var file = this.fileTemp;
       if (file == null) {
@@ -150,9 +206,9 @@ export default {
     },
     uploadRequest(data) {
       let that = this;
-      var ip = this.$serverIp + "uploadDoc";
+      var ip = this.$serverIp + "uploadPICTDoc";
       this.$axios
-        .post(ip, data, {
+        .post(ip, data, {  //0:代表PICT，1：代表Graphwalker
           header: {
             "Content-Type": "multipart/form-data",
           },
