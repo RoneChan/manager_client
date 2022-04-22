@@ -2,6 +2,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueResource from "vue-resource";
 
 //内容组件跳转import
 import HelloWorld from '@/components/HelloWorld'
@@ -11,9 +12,11 @@ import Login from '@/components/Login'
 import ProjectDetail from '@/components/ProjectDetail'
 import ImportRule from '@/components/ImportRule'
 import GraphwalkerImport from '@/components/GraphwalkerImport'
+import RuleGenerateTestCase from '@/components/RuleGenerateTestCase'
 
 //表明Vue使用router
 Vue.use(Router);
+Vue.use(VueResource);
 
 export default new Router({
   routes: [
@@ -50,6 +53,11 @@ export default new Router({
       path:'/GraphwalkerImport',
       name:'GraphwalkerImport',
       component: GraphwalkerImport
+    },
+    {
+      path:'/RuleGenerateTestCase',
+      name:'RuleGenerateTestCase',
+      component: RuleGenerateTestCase
     },
 
   ]

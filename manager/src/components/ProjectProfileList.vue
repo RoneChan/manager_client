@@ -12,6 +12,10 @@
         <el-table-column prop="system" label="系统" width="120">
         </el-table-column>
 
+
+
+
+
         <el-table-column label="操作">
         <template slot-scope="scope">
         <el-button
@@ -48,7 +52,7 @@
 </script>
 
 <style>
-  
+
   .el-table{
     background-color: #B3C0D1;
   }

@@ -29,37 +29,47 @@
         <el-submenu index="1">
           <template slot="title"
             ><i class="el-icon-message"></i>人员管理</template
-          >
-          <el-menu-item-group>
-            <el-menu-item index="/ProjectProfileList">人员信息</el-menu-item>
-            <el-menu-item index="/HelloWorld">查看工作量</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+            >
+            <el-menu-item-group>
+              <el-menu-item index="/ProjectProfileList">人员信息</el-menu-item>
+              <el-menu-item index="/HelloWorld">查看工作量</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
 
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>项目管理</template>
-          <el-menu-item-group>
-            <el-menu-item index="/newProject">新增项目</el-menu-item>
-            <el-menu-item index="2-2">编辑项目</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+          <el-submenu index="2">
+            <template slot="title"><i class="el-icon-menu"></i>项目管理</template>
+            <el-menu-item-group>
+              <el-menu-item index="/newProject">新增项目</el-menu-item>
+              <el-menu-item index="2-2">编辑项目</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
 
-        <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>用例平台</template>
-          <el-menu-item-group>
-            <el-menu-item index="/ImportRule">规则库导入</el-menu-item>
-            <el-menu-item index="/GraphwalkerImport">Graphwalker用例生成</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+          <el-submenu index="3">
+            <template slot="title"><i class="el-icon-setting"></i>测试规则维护</template>
+            <el-menu-item-group>
+              <el-menu-item index="/ImportRule">测试规则导入</el-menu-item>
+              <el-menu-item index="/ImportRule1">测试规则更新</el-menu-item>
+              <el-menu-item index="/ImportRule2">测试规则查询</el-menu-item>
+              <el-menu-item index="/ImportRule3">测试规则导出</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
 
-        <el-submenu index="4">
-          <template slot="title"><i class="el-icon-setting"></i>我的</template>
-          <el-menu-item-group>
-            <el-menu-item index="/Login">我的项目</el-menu-item>
-            <el-menu-item index="4-2">我的信息</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-      </el-menu>
+          <el-submenu index="4">
+            <template slot="title"><i class="el-icon-setting"></i>测试用例生成</template>
+            <el-menu-item-group>
+              <el-menu-item index="/RuleGenerateTestCase">规则资产生成用例</el-menu-item><!--通过调用PICT生成用例-->
+              <el-menu-item index="3-2">流程状态图生成用例</el-menu-item><!--通过调用Graphwalker生成用例-->
+            </el-menu-item-group>
+          </el-submenu>
+
+          <el-submenu index="5">
+            <template slot="title"><i class="el-icon-setting"></i>我的</template>
+            <el-menu-item-group>
+              <el-menu-item index="/Login">我的项目</el-menu-item>
+              <el-menu-item index="4-2">我的信息</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
       </el-aside>
 
  <el-container>
@@ -101,7 +111,7 @@ export default {
 
 .el-header {
   background-color:#b3c0d1;
-  
+
   color: #333;
   line-height: 60px;
 }
