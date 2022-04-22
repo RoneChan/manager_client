@@ -55,12 +55,15 @@
           </el-submenu>
 
           <el-submenu index="4">
-            <template slot="title"><i class="el-icon-setting"></i>测试用例生成</template>
+            <template slot="title"><i class="el-icon-setting"></i>测试用例自动生成</template>
             <el-menu-item-group>
               <el-menu-item index="/RuleGenerateTestCase">规则资产生成用例</el-menu-item><!--通过调用PICT生成用例-->
-              <el-menu-item index="3-2">流程状态图生成用例</el-menu-item><!--通过调用Graphwalker生成用例-->
+              <el-menu-item index="/GraphGenerateTestCase">流程状态图生成用例</el-menu-item><!--通过调用Graphwalker生成用例-->
+              <el-menu-item index="/TestCaseExcDownload">用例文件下载</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+
+
 
           <el-submenu index="5">
             <template slot="title"><i class="el-icon-setting"></i>我的</template>

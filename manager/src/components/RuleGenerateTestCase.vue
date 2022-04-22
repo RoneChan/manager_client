@@ -8,7 +8,7 @@
                 <br>
                 <div id="exhibitorleft" >系统</div>
                 <div id="exhibitorright">
-              <el-select v-model="value" placeholder="请选择">
+              <el-select v-model="systemVersion" placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -25,10 +25,7 @@
                 <div id="exhibitorleft">交易名称</div>
                 <div id="exhibitorright">
               <el-input
-                placeholder="输入交易名称"
-                prefix-icon="el-icon-search"
-                v-model="input1"
-                width="60px">
+                placeholder="输入交易名称" prefix-icon="el-icon-search" v-model="tradeName" id="testRule_tradeName_input" width="60px">
               </el-input>
                 </div>
             </div>
@@ -132,7 +129,8 @@ export default {
         value: '选项5',
         label: 'AAAAAAA'
       }],
-      value: '',
+      systemVersion: '',//系统名称
+      tradeName: '',//交易名称
       bgc: '', //样式
       testRule: [{
         systemVersion: '',
