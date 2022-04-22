@@ -7,6 +7,8 @@ import router from './router'
 import axios from "axios";//引入axios
 Vue.prototype.$axios = axios;//配置axios
 Vue.prototype.Host = 'api';
+//服务器地址
+Vue.prototype.$serverIp = "http://127.0.0.1:8060/";
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
