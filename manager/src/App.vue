@@ -16,11 +16,11 @@
     <el-container>
       <el-aside width="200px"  style="background-color: rgb(68, 100, 140)">
         <!--:default-openeds="['1', '2', '3']"-->
-        
+
       <el-menu
         default-active="this.$route.path"
         router
-        class="left-menu"  
+        class="left-menu"
         background-color="#44648C"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -60,6 +60,7 @@
               <el-menu-item index="/RuleGenerateTestCase">规则资产生成用例</el-menu-item><!--通过调用PICT生成用例-->
               <el-menu-item index="/GraphGenerateTestCase">流程状态图生成用例</el-menu-item><!--通过调用Graphwalker生成用例-->
               <el-menu-item index="/TestCaseExcDownload">用例文件下载</el-menu-item>
+              <el-menu-item index="/ResultMatchConfig">结果映射字典维护</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
 
@@ -76,12 +77,12 @@
       </el-aside>
 
  <el-container>
-     
-   
+
+
       <!-- 跳转标签 -->
       <router-view />
  </el-container>
-    
+
   </el-container>
   </div>
 </template>
