@@ -1,5 +1,6 @@
 <template>
   <el-main>
+    
     <el-upload
       class="upload-demo"
       action=""
@@ -10,16 +11,27 @@
       :limit="limitUpload"
       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
       :auto-upload="false"
-    >
-      <el-button size="small" type="primary">点击导入</el-button>
+    > 
+    
+      <el-button icon="el-icon-folder-add" type="primary">点击导入</el-button>
+     
+   
       <div slot="tip" class="el-upload__tip">只 能 上 传 xlsx / xls 文 件</div>
     </el-upload>
-    <el-button size="small" type="primary" @click="uploadFile">上传</el-button>
-    
-    <el-button size="small" type="primary" @click="caseCreate">用例生成</el-button>
-
-    
-
+      <span style="margin-right:30px">系统</span>
+      <el-select v-model="systemName" placeholder="请选择" style="margin-right:50px">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+ <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
+      <el-button type="success" @click="caseCreate">用例生成</el-button>
+    <br />
+    <br />
     <el-table :data="tableData" stripe border height="600">
       <el-table-column prop="tradeName" label="交易名称" min-width="8%">
       </el-table-column>
@@ -31,11 +43,19 @@
       </el-table-column>
       <el-table-column prop="ioIteam" label="输入项或输出项" min-width="30%">
       </el-table-column>
-      <el-table-column prop="outputEffective" label="输入输出有效性" min-width="5%">
+      <el-table-column
+        prop="outputEffective"
+        label="输入输出有效性"
+        min-width="5%"
+      >
       </el-table-column>
-      <el-table-column prop="testCovItem" label="测试覆盖项(TCI)" min-width="30%">
+      <el-table-column
+        prop="testCovItem"
+        label="测试覆盖项(TCI)"
+        min-width="30%"
+      >
       </el-table-column>
-<!--
+      <!--
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
@@ -49,10 +69,35 @@
 </template>
 
 <script>
+
+import {uploadFilePost} from "../api/post"
 export default {
   name: "ImportRule",
   data() {
     return {
+      options: [
+        {
+          value: "PAIC",
+          label: "PAIC",
+        },
+        {
+          value: "AMTP",
+          label: "AMTP",
+        },
+        {
+          value: "香港网银",
+          label: "香港网银",
+        },
+        {
+          value: "香港掌银",
+          label: "香港掌银",
+        },
+        {
+          value: "AAAAAAA",
+          label: "AAAAAAA",
+        },
+      ],
+      systemName:'',
       limitUpload: 1,
       fileListUpload: [],
       fileTemp: null, // 存放组件上传的excel file 用于实现读取数据
@@ -81,16 +126,20 @@ export default {
     },
 
     formatDate(numb, format) {
-      const time = new Date((numb - 1) * 24 * 3600000 + 1)
-      time.setYear(time.getFullYear() - 70)
-      const year = time.getFullYear() + ''
-      const month = time.getMonth() + 1 + ''
-      const date = time.getDate() - 1 + ''
-      console.log("time:",numb,year);
+      const time = new Date((numb - 1) * 24 * 3600000 + 1);
+      time.setYear(time.getFullYear() - 70);
+      const year = time.getFullYear() + "";
+      const month = time.getMonth() + 1 + "";
+      const date = time.getDate() - 1 + "";
+      console.log("time:", numb, year);
       if (format && format.length === 1) {
-        return year + format + month + format + date
+        return year + format + month + format + date;
       }
-      return year + (month < 10 ? '0' + month : month) + (date < 10 ? '0' + date : date)
+      return (
+        year +
+        (month < 10 ? "0" + month : month) +
+        (date < 10 ? "0" + date : date)
+      );
     },
 
     importExcelData(obj) {
@@ -117,12 +166,12 @@ export default {
             wb = XLSX.read(btoa(fixdata(binary)), {
               //手动转化
               type: "base64",
-             // cellDates: true,
+              // cellDates: true,
             });
           } else {
             wb = XLSX.read(binary, {
               type: "binary",
-             // cellDates: true,
+              // cellDates: true,
             });
           }
           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[1]]); //outdata为excel的数据
@@ -131,10 +180,10 @@ export default {
           //处理数据，处理key的值
           for (var i = 1; i < outdata.length; i++) {
             var data = {};
-            data["systemVersion"] ="";
+            data["systemVersion"] = "";
             data["tradeName"] = outdata[i].__EMPTY;
             data["tradeCode"] = outdata[i].__EMPTY_1;
-            data["testCharacter"]=outdata[i].__EMPTY_2;
+            data["testCharacter"] = outdata[i].__EMPTY_2;
             data["ruleDescribe"] = outdata[i].__EMPTY_3;
             data["ruleType"] = outdata[i].__EMPTY_4;
             data["ioIteam"] = outdata[i].__EMPTY_5;
@@ -145,12 +194,12 @@ export default {
             data["ruleRepresentation"] = outdata[i].__EMPTY_10;
             data["caseNumber"] = outdata[i].__EMPTY_11;
             data["designName"] = outdata[i].__EMPTY_12;
-            var date = _this.formatDate(outdata[i].__EMPTY_13,"-");
-             data["submitTime"] = date;
+            var date = _this.formatDate(outdata[i].__EMPTY_13, "-");
+            data["submitTime"] = date;
 
             excelData.push(data);
           }
-          console.log(outdata,excelData,)
+          console.log(outdata, excelData);
 
           _this.tableData = excelData;
           //console.log(_this.tableData);
@@ -164,12 +213,12 @@ export default {
         reader.readAsBinaryString(f);
       }
     },
-    caseCreate(){
-      
+    
+    caseCreate() {
       let that = this;
       var ip = this.$serverIp + "CaseCreate";
       var data = this.tableData;
-      console.log(data)
+      console.log(data);
       this.$axios
         .post(ip, data)
         .then(function (res) {
@@ -189,25 +238,24 @@ export default {
     },
 
     uploadFile() {
-      var file = this.fileTemp;
       
+      var file = this.fileTemp;
+
       //落数据库
       let that = this;
-      var ip = this.$serverIp + "uploadTestRules";//修改相应的接口
+      var name  =  this.systemName;
+      var ip = this.$serverIp + "uploadTestRules"+"?name="+name ; //修改相应的接口
       var data = this.tableData;
-      console.log(data)
+      console.log(data);
+      
       this.$axios
         .post(ip, data)
         .then(function (res) {
           console.log(res);
-          if (res.status == 200) {
-            that.$message.success("上传成功!");
-          }
         })
         .catch(function (err) {
           that.$message.error("网络请求异常!");
         });
-      
 
       //保存excel文件
       if (file == null) {
@@ -224,12 +272,12 @@ export default {
         this.uploadRequest(formData);
       }
     },
-    
+
     uploadRequest(data) {
       let that = this;
       var ip = this.$serverIp + "uploadPICTDoc";
       this.$axios
-        .post(ip, data, { 
+        .post(ip, data, {
           header: {
             "Content-Type": "multipart/form-data",
           },
@@ -239,15 +287,15 @@ export default {
           if (res.status == 200) {
             that.$message.success("上传成功!");
           }
-        
         })
         .catch(function (err) {
           that.$message.error("网络请求异常!");
         });
     },
   },
-  watch: {  
-    fileTemp(val) {  //当fileTemp改变了，会执行以下代码
+  watch: {
+    fileTemp(val) {
+      //当fileTemp改变了，会执行以下代码
       console.log(val);
       if (val) {
         if (
@@ -272,5 +320,6 @@ export default {
 .el-table {
   background-color: #b3c0d1;
 }
+
 </style>
 
