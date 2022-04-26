@@ -190,10 +190,10 @@ export default {
 
     uploadFile() {
       var file = this.fileTemp;
-      /*
+      
       //落数据库
       let that = this;
-      var ip = this.$serverIp + "CaseCreate";//修改相应的接口
+      var ip = this.$serverIp + "uploadTestRules";//修改相应的接口
       var data = this.tableData;
       console.log(data)
       this.$axios
@@ -207,7 +207,7 @@ export default {
         .catch(function (err) {
           that.$message.error("网络请求异常!");
         });
-       */
+      
 
       //保存excel文件
       if (file == null) {
@@ -224,6 +224,7 @@ export default {
         this.uploadRequest(formData);
       }
     },
+    
     uploadRequest(data) {
       let that = this;
       var ip = this.$serverIp + "uploadPICTDoc";
