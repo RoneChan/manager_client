@@ -54,7 +54,15 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-submenu index="4">
+ <el-submenu index="4">
+            <template slot="title"><i class="el-icon-setting"></i>Graphwalker维护</template>
+            <el-menu-item-group>
+              <el-menu-item index="/GraphwalkerImport">Graphwalker文件导入</el-menu-item>
+              <el-menu-item index="/GraphwalkerImport2">Graphwalker查询</el-menu-item>
+              <el-menu-item index="/GraphwalkerImport">测试规则导出</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="5">
             <template slot="title"><i class="el-icon-setting"></i>测试用例自动生成</template>
             <el-menu-item-group>
               <el-menu-item index="/RuleGenerateTestCase">规则资产生成用例</el-menu-item><!--通过调用PICT生成用例-->
@@ -66,7 +74,7 @@
 
 
 
-          <el-submenu index="5">
+          <el-submenu index="6">
             <template slot="title"><i class="el-icon-setting"></i>我的</template>
             <el-menu-item-group>
               <el-menu-item index="/Login">我的项目</el-menu-item>

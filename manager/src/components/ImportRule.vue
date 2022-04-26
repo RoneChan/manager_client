@@ -1,23 +1,7 @@
 <template>
   <el-main>
-    
-    <el-upload
-      class="upload-demo"
-      action=""
-      :on-change="handleChange"
-      :on-exceed="handleExceed"
-      :on-remove="handleRemove"
-      :file-list="fileListUpload"
-      :limit="limitUpload"
-      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-      :auto-upload="false"
-    > 
-    
-      <el-button icon="el-icon-folder-add" type="primary">点击导入</el-button>
-     
-   
-      <div slot="tip" class="el-upload__tip">只 能 上 传 xlsx / xls 文 件</div>
-    </el-upload>
+    <el-row type="flex" class="row-bg" justify="center">
+      <el-col :span="6">
       <span style="margin-right:30px">系统</span>
       <el-select v-model="systemName" placeholder="请选择" style="margin-right:50px">
         <el-option
@@ -28,8 +12,35 @@
         >
         </el-option>
       </el-select>
- <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
-      <el-button type="success" @click="caseCreate">用例生成</el-button>
+    </el-col>
+      <el-col :span="2">
+        <el-upload
+          class="upload-demo"
+          action=""
+          :on-change="handleChange"
+          :on-exceed="handleExceed"
+          :on-remove="handleRemove"
+          :file-list="fileListUpload"
+          :limit="limitUpload"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+          :auto-upload="false"
+        > 
+          <el-button icon="el-icon-folder-add" type="primary">点击导入</el-button>
+         
+        </el-upload>
+    </el-col>
+    <el-col :span="2">
+      <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
+    </el-col>     
+    
+  
+  </el-row>
+  <!--
+  <el-row>
+   <div slot="tip" class="el-upload__22tip">只 能 上 传 xlsx / xls 文 件</div>
+   </el-row>
+   -->
+  <!--<el-button type="success" @click="caseCreate">用例生成</el-button>-->
     <br />
     <br />
     <el-table :data="tableData" stripe border height="600">
@@ -69,8 +80,7 @@
 </template>
 
 <script>
-
-import {uploadFilePost} from "../api/post"
+import { uploadFilePost } from "../api/post";
 export default {
   name: "ImportRule",
   data() {
@@ -97,7 +107,7 @@ export default {
           label: "AAAAAAA",
         },
       ],
-      systemName:'',
+      systemName: "",
       limitUpload: 1,
       fileListUpload: [],
       fileTemp: null, // 存放组件上传的excel file 用于实现读取数据
@@ -213,7 +223,7 @@ export default {
         reader.readAsBinaryString(f);
       }
     },
-    
+
     caseCreate() {
       let that = this;
       var ip = this.$serverIp + "CaseCreate";
@@ -238,16 +248,15 @@ export default {
     },
 
     uploadFile() {
-      
       var file = this.fileTemp;
 
       //落数据库
       let that = this;
-      var name  =  this.systemName;
-      var ip = this.$serverIp + "uploadTestRules"+"?name="+name ; //修改相应的接口
+      var name = this.systemName;
+      var ip = this.$serverIp + "uploadTestRules" + "?name=" + name; //修改相应的接口
       var data = this.tableData;
       console.log(data);
-      
+
       this.$axios
         .post(ip, data)
         .then(function (res) {
@@ -276,6 +285,7 @@ export default {
     uploadRequest(data) {
       let that = this;
       var ip = this.$serverIp + "uploadPICTDoc";
+
       this.$axios
         .post(ip, data, {
           header: {
@@ -321,5 +331,9 @@ export default {
   background-color: #b3c0d1;
 }
 
+ .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 </style>
 
