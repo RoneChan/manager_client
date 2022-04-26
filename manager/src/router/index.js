@@ -13,6 +13,7 @@ import ProjectDetail from '@/components/ProjectDetail'
 import ImportRule from '@/components/ImportRule'
 import GraphwalkerImport from '@/components/GraphwalkerImport'
 import RuleGenerateTestCase from '@/components/RuleGenerateTestCase'
+import ResultMatchConfig from '@/components/ResultMatchConfig'
 
 //表明Vue使用router
 Vue.use(Router);
@@ -58,6 +59,11 @@ export default new Router({
       path:'/RuleGenerateTestCase',
       name:'RuleGenerateTestCase',
       component: RuleGenerateTestCase
+    },
+    {
+      path:'/ResultMatchConfig',
+      name:'ResultMatchConfig',
+      component: ResultMatchConfig
     },
 
   ]
