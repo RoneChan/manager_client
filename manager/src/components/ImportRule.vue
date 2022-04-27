@@ -32,8 +32,6 @@
     <el-col :span="2">
       <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
     </el-col>     
-    
-  
   </el-row>
   <!--
   <el-row>
