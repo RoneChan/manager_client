@@ -38,9 +38,13 @@ export function ruleGenerateTestCase() {
 }
 
 //获取测试规则
-export function getTestRules() {
+export function getTestRules(systemVersion, tradeName) {
   return service.get('/ruleGenerateTestCase/getTestRules', {
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemVersion: systemVersion,
+      tradeName: tradeName
+    }
   })
 }
 
