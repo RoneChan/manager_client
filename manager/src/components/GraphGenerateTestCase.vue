@@ -79,10 +79,7 @@ export default {
           value: "香港掌银",
           label: "香港掌银",
         },
-        {
-          value: "AAAAAAA",
-          label: "AAAAAAA",
-        },
+
       ],
       systemName: "",
       tradeName: "",
