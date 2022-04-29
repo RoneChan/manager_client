@@ -105,7 +105,7 @@
 
 <script>
 //import {RuleGenerateTestCase} from "../api/get";
-import {ruleGenerateTestCase} from "../api/get";
+import {generateTestCaseByPICT, ruleGenerateTestCase} from "../api/get";
 import {getTestRules} from "../api/get"
 
 export default {
@@ -178,7 +178,11 @@ export default {
     },
 
     testRules() {
-      ruleGenerateTestCase().then(res =>{
+      console.log("begin to generate TestCase");
+      console.log(this.systemVersion);
+      console.log(this.tradeName);
+      console.log("YYYYYYYYYYYYY");
+      generateTestCaseByPICT(this.systemVersion, this.tradeName).then(res =>{
         this.value = res.data.data
       })
     },

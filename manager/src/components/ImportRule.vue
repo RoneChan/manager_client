@@ -3,7 +3,7 @@
     <el-row type="flex" class="row-bg" justify="center">
       <el-col :span="6">
       <span style="margin-right:30px">系统</span>
-      <el-select v-model="systemName" placeholder="请选择" style="margin-right:50px">
+      <el-select v-model="systemVersion" placeholder="请选择" style="margin-right:50px">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -24,14 +24,14 @@
           :limit="limitUpload"
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
           :auto-upload="false"
-        > 
+        >
           <el-button icon="el-icon-folder-add" type="primary">点击导入</el-button>
-         
+
         </el-upload>
     </el-col>
     <el-col :span="2">
       <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
-    </el-col>     
+    </el-col>
   </el-row>
   <!--
   <el-row>
@@ -105,7 +105,7 @@ export default {
           label: "AAAAAAA",
         },
       ],
-      systemName: "",
+      systemVersion: "",
       limitUpload: 1,
       fileListUpload: [],
       fileTemp: null, // 存放组件上传的excel file 用于实现读取数据
@@ -152,6 +152,7 @@ export default {
 
     importExcelData(obj) {
       let _this = this;
+      console.log(this);
       // 通过DOM取文件数据
       this.file = obj;
       let rABS = false; //是否将文件读取为二进制字符串
@@ -188,7 +189,7 @@ export default {
           //处理数据，处理key的值
           for (var i = 1; i < outdata.length; i++) {
             var data = {};
-            data["systemVersion"] = "";
+            data["systemVersion"] = "香港掌银";
             data["tradeName"] = outdata[i].__EMPTY;
             data["tradeCode"] = outdata[i].__EMPTY_1;
             data["testCharacter"] = outdata[i].__EMPTY_2;

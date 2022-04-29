@@ -23,13 +23,6 @@ export function findName(username) {
     })
 }
 
-// 查找所有学生成绩
-// export function findStudentScoreInfo() {
-//   return service.get('/ruleGenerateTestCase/findStudentScoreInfo', {
-//     headers: { 'Content-Type': 'application/json' }
-//   })
-// }
-
 //test连通性
 export function ruleGenerateTestCase() {
   return service.get('/ruleGenerateTestCase/generateTestCase', {
@@ -37,6 +30,16 @@ export function ruleGenerateTestCase() {
   })
 }
 
+//通过Rule生成测试用例
+export function generateTestCaseByPICT(systemVersion, tradeName) {
+  return service.get('/ruleGenerateTestCase/generateTestCaseByPICT', {
+     headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemVersion: systemVersion,
+      tradeName: tradeName
+    }
+   })
+}
 //获取测试规则
 export function getTestRules(systemVersion, tradeName) {
   return service.get('/ruleGenerateTestCase/getTestRules', {
