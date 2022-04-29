@@ -188,7 +188,7 @@ export default {
           //处理数据，处理key的值
           for (var i = 1; i < outdata.length; i++) {
             var data = {};
-            data["systemVersion"] = "";
+            data["systemVersion"] ='';
             data["tradeName"] = outdata[i].__EMPTY;
             data["tradeCode"] = outdata[i].__EMPTY_1;
             data["testCharacter"] = outdata[i].__EMPTY_2;
