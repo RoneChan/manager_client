@@ -15,6 +15,8 @@ import GraphwalkerImport from '@/components/GraphwalkerImport'
 import RuleGenerateTestCase from '@/components/RuleGenerateTestCase'
 import ResultMatchConfig from '@/components/ResultMatchConfig'
 import GraphGenerateTestCase from '@/components/GraphGenerateTestCase'
+import TestCaseExcDownload from '@/components/TestCaseExcDownload'
+
 
 //表明Vue使用router
 Vue.use(Router);
@@ -70,6 +72,11 @@ export default new Router({
       path:'/GraphGenerateTestCase',
       name:'GraphGenerateTestCase',
       component: GraphGenerateTestCase
+    },
+    {
+      path:'/TestCaseExcDownload',
+      name:'TestCaseExcDownload',
+      component: TestCaseExcDownload
     },
     
   ]
