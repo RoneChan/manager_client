@@ -105,8 +105,7 @@
 
 <script>
 //import {RuleGenerateTestCase} from "../api/get";
-import {findStudentScoreInfo} from "../api/get";
-import {ruleGenerateTestCase} from "../api/get";
+import {generateTestCaseByPICT, ruleGenerateTestCase} from "../api/get";
 import {getTestRules} from "../api/get"
 
 export default {
@@ -114,19 +113,19 @@ export default {
   data() {
     return {
       options: [{
-        value: '选项1',
+        value: 'PAIC',
         label: 'PAIC'
       }, {
-        value: '选项2',
+        value: 'AMTP',
         label: 'AMTP'
       }, {
-        value: '选项3',
+        value: '香港网银',
         label: '香港网银'
       }, {
-        value: '选项4',
+        value: '香港掌银',
         label: '香港掌银'
       }, {
-        value: '选项5',
+        value: 'AAAAAA',
         label: 'AAAAAAA'
       }],
       systemVersion: '',//系统名称
@@ -169,13 +168,21 @@ export default {
       this.bgc = ''
     },
     queryRules () {
-      getTestRules().then(res => {
-        this.testRule = res.data.data
+      console.log("xxxxxxxxxxxxx");
+      console.log(this.systemVersion);
+      console.log(this.tradeName);
+      console.log("YYYYYYYYYYYYY");
+      getTestRules(this.systemVersion, this.tradeName).then(res => {
+          this.testRule = res.data.data
       })
     },
 
     testRules() {
-      ruleGenerateTestCase().then(res =>{
+      console.log("begin to generate TestCase");
+      console.log(this.systemVersion);
+      console.log(this.tradeName);
+      console.log("YYYYYYYYYYYYY");
+      generateTestCaseByPICT(this.systemVersion, this.tradeName).then(res =>{
         this.value = res.data.data
       })
     },
@@ -190,7 +197,7 @@ export default {
     // }
   },
   created() {
-    this.queryRules()
+    //this.queryRules()
   }
 
 
