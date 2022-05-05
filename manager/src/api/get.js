@@ -51,4 +51,15 @@ export function getTestRules(systemVersion, tradeName) {
   })
 }
 
+//获取下载文件信息
+export function getDownloadFile(systemVersion, tradeName,fileType) {
+  return service.get('/getDownloadFile', {
+    headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemVersion: systemVersion,
+      tradeName: tradeName,
+      fileType:fileType
+    }
+  })
+}
 
