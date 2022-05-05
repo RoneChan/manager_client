@@ -2,99 +2,94 @@
   <div>
     <el-container>
       <el-main>
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <div >
-                <br>
-                <div id="exhibitorleft" >系统</div>
-                <div id="exhibitorright">
-              <el-select v-model="systemVersion" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-                </div>
-            </div>
-            </el-col>
-
-            <el-col :span="7">
-              <div>
-                <br>
-                <div id="exhibitorleft">交易名称</div>
-                <div id="exhibitorright">
-              <el-input
-                placeholder="输入交易名称" prefix-icon="el-icon-search" v-model="tradeName" id="testRule_tradeName_input" width="60px">
-              </el-input>
-                </div>
-            </div>
-            </el-col>
-            <el-col :span="7">
-              <div >
-                <br>
-                <div id="exhibitorleft" >文件类型</div>
-                <div id="exhibitorright">
-              <el-select v-model="fileType" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-                </div>
-            </div>
-            </el-col>
-
+        <el-row :gutter="25">
+          <el-col :span="6">
             <div>
-              <br>
-              <el-button type="primary" icon="el-icon-search" v-on:click="queryFile">查询文件</el-button>
+              <br />
+              <div id="exhibitorleft">系统</div>
+              <div id="exhibitorright">
+                <el-select v-model="systemVersion" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
             </div>
+          </el-col>
 
-          </el-row>
-        <el-table
-          :data="fileData"
-          stripe
-          style="width: 100%">
-          <el-table-column
-            prop="systemVersion"
-            label="系统名称"
-            width="100">
+          <el-col :span="7">
+            <div>
+              <br />
+              <div id="exhibitorleft">交易名称</div>
+              <div id="exhibitorright">
+                <el-input
+                  placeholder="输入交易名称"
+                  prefix-icon="el-icon-search"
+                  v-model="tradeName"
+                  id="testRule_tradeName_input"
+                  width="60px"
+                >
+                </el-input>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="7">
+            <div>
+              <br />
+              <div id="exhibitorleft">文件类型</div>
+              <div id="exhibitorright">
+                <el-select v-model="fileTypeChoose" placeholder="请选择">
+                  <el-option
+                    v-for="item in fileType"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <div>
+              <br />
+              <el-button
+                type="primary"
+                icon="el-icon-search"
+                v-on:click="queryFile"
+                >查询文件</el-button
+              >
+            </div>
+          </el-col>
+        </el-row>
+        <el-table :data="fileData" stripe style="width: 100%">
+          <el-table-column prop="systemVersion" label="系统名称" width="100">
           </el-table-column>
-          <el-table-column
-            prop="tradeName"
-            label="交易名称"
-            width="100">
+          <el-table-column prop="tradeName" label="交易名称" width="100">
           </el-table-column>
-          <el-table-column
-            prop="saveTime"
-            label="生成时间"
-            width="100">
+          <el-table-column prop="fileName" label="文件名称" width="200">
           </el-table-column>
-        <el-table-column label="操作">
-        <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="downloadFile(scope.$index)">下载</el-button>
-      </template>
-        </el-table-column>
+          <el-table-column prop="saveTime" label="生成时间" width="150">
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="downloadFile(scope.$index)"
+                >下载</el-button
+              >
+            </template>
+          </el-table-column>
         </el-table>
       </el-main>
     </el-container>
   </div>
-
-
-
-
 </template>
 
 <script>
-//import {RuleGenerateTestCase} from "../api/get";
-import { findStudentScoreInfo } from "../api/get";
-import { ruleGenerateTestCase } from "../api/get";
-import { getTestRules } from "../api/get";
+import { getDownloadFile } from "../api/get";
 
 export default {
   name: "TestCaseExcDownload",
@@ -102,58 +97,59 @@ export default {
     return {
       options: [
         {
-          value: "选项1",
+          value: "PAIC",
           label: "PAIC",
         },
         {
-          value: "选项2",
+          value: "AMTP",
           label: "AMTP",
         },
         {
-          value: "选项3",
+          value: "香港网银",
           label: "香港网银",
         },
         {
-          value: "选项4",
+          value: "香港掌银",
           label: "香港掌银",
         },
-
       ],
-      fileType:[
-           {
-          value: "TC_PICT",
+      fileType: [
+        {
+          value: 0,
           label: "PICT用例文件",
         },
         {
-          value: "TC_GW",
+          value: 1,
           label: "GraphWalker用例文件",
         },
         {
-          value: "FILE_PICT",
+          value: 2,
           label: "PICT规则文件",
         },
         {
-          value: "GRAPH_GW",
+          value: 3,
           label: "Graphml图文件",
         },
-
       ],
       systemVersion: "", //系统名称
       tradeName: "", //交易名称
       bgc: "", //样式
+      fileTypeChoose: "", //文件类型
       fileData: [
-          {
-              systemVersion: "OIBS",
-              tradeName:"sdfs",
-              saveTime:"20220102",
-              fileUrl: "http://127.0.0.1:8086/TC_PICT/20220426105505205.xls"
-          },
-           {
-              systemVersion: "dsfs",
-              tradeName:"sdffbfs",
-              saveTime:"20210102",
-              fileUrl: "http://127.0.0.1:8086/TC_GW/20220427112650749.graphml"
-          }
+        {
+          systemVersion: "OIBS",
+          tradeName: "sdfs",
+          fileName: "文件名称1",
+          saveTime: "20220102",
+          savePath: "http://127.0.0.1:8086/TC_PICT/20220426105505205.xls",
+        },
+        {
+          systemVersion: "dsfs",
+          tradeName: "sdffbfs",
+          fileName: "文件名称2",
+          saveTime: "20210102",
+          savePath: "http://127.0.0.1:8086/TC_GW/20220427112650749.graphml",
+        },
       ], // 接收查找的数据
     };
   },
@@ -170,21 +166,21 @@ export default {
     mouseLeave() {
       this.bgc = "";
     },
-    queryFile(){
+    queryFile() {
+      var type = this.fileTypeChoose;
+      if ((type == undefined || type == null || type == "") && type != "0") {
+        type = -1;
+      }
+      getDownloadFile(this.systemVersion, this.tradeName, type).then((res) => {
+        this.fileData = res.data;
+      });
     },
     downloadFile(index) {
-
-        let url =this.fileData[index].fileUrl;
-        console.log(url,"urlurl");
-
-
-
-
-
-        const a = document.createElement('a')
-        a.href = url
-        a.click() // 点击下载
-       // document.body.removeChild(a) // 下载完成移除元素=
+      let url = this.fileData[index].savePath;
+      const a = document.createElement("a");
+      a.href = url;
+      a.click(); // 点击下载
+      // document.body.removeChild(a) // 下载完成移除元素=
     },
   },
 };
