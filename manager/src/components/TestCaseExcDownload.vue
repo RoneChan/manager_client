@@ -67,13 +67,13 @@
           </el-col>
         </el-row>
         <el-table :data="fileData" stripe style="width: 100%">
-          <el-table-column prop="systemVersion" label="系统名称" width="100">
+          <el-table-column prop="systemVersion" label="系统名称" width="150">
           </el-table-column>
-          <el-table-column prop="tradeName" label="交易名称" width="100">
+          <el-table-column prop="tradeName" label="交易名称" width="150">
           </el-table-column>
-          <el-table-column prop="fileName" label="文件名称" width="200">
+          <el-table-column prop="fileName" label="文件名称" width="250">
           </el-table-column>
-          <el-table-column prop="saveTime" label="生成时间" width="150">
+          <el-table-column prop="saveTime" label="生成时间" width="180">
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -136,6 +136,7 @@ export default {
       bgc: "", //样式
       fileTypeChoose: "", //文件类型
       fileData: [
+        /*
         {
           systemVersion: "OIBS",
           tradeName: "sdfs",
@@ -149,7 +150,7 @@ export default {
           fileName: "文件名称2",
           saveTime: "20210102",
           savePath: "http://127.0.0.1:8086/TC_GW/20220427112650749.graphml",
-        },
+        },*/
       ], // 接收查找的数据
     };
   },

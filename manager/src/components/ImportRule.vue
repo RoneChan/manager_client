@@ -4,23 +4,24 @@
       <el-main>
         <el-row :gutter="20">
           <el-col :span="8">
-            <div >
-              <br>
-              <div id="exhibitorleft" >系统</div>
+            <div>
+              <br />
+              <div id="exhibitorleft">系统</div>
               <div id="exhibitorright">
                 <el-select v-model="systemVersion" placeholder="请选择">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
                     :label="item.label"
-                    :value="item.value">
+                    :value="item.value"
+                  >
                   </el-option>
                 </el-select>
               </div>
             </div>
           </el-col>
-          <div>
-            <br>
+          <el-col :span="12">
+            <br />
             <el-upload
               class="upload-demo"
               action=""
@@ -32,16 +33,29 @@
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
               :auto-upload="false"
             >
-              <el-button icon="el-icon-folder-add" type="primary">点击导入</el-button>
-              <el-button icon="el-icon-upload" type="success" @click="uploadFile">上传</el-button>
+              <el-button icon="el-icon-folder-add" type="primary"
+                >点击导入</el-button
+              >
             </el-upload>
+          </el-col>
 
-          </div>
+          <el-col :span="1">
+            <br />
+            <el-button icon="el-icon-upload" type="success" @click="uploadFile"
+              >上传</el-button
+            >
+          </el-col>
         </el-row>
-        <br>
-        <el-table :data="tableData" stripe border height="600" stripe
-                  style="width: 100%">
-          <el-table-column prop="tradeName" label="交易名称"  width="120">
+        <br />
+        <el-table
+          :data="tableData"
+          stripe
+          border
+          height="600"
+          stripe
+          style="width: 100%"
+        >
+          <el-table-column prop="tradeName" label="交易名称" width="120">
           </el-table-column>
           <el-table-column prop="tradeCode" label="交易码" width="120">
           </el-table-column>
@@ -77,7 +91,6 @@
       <el-footer>导入测试规则资产管理</el-footer>
     </el-container>
   </div>
-
 </template>
 
 <script>
@@ -333,10 +346,10 @@ export default {
   background-color: #b3c0d1;
 }
 
- .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
 
 #exhibitorleft {
   float: left;

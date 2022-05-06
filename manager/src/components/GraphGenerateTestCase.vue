@@ -1,36 +1,40 @@
 <template>
-  <el-main v-loading="loading"  element-loading-text="正在生成中，请稍等">
-    <el-row type="flex" class="row-bg" justify="center">
+  <el-main v-loading="loading" element-loading-text="正在生成中，请稍等">
+    <el-row gutter="20">
       <el-col :span="6">
-        <span style="margin-right: 30px">系统</span>
-        <el-select
-          v-model="systemName"
-          placeholder="请选择"
-          style="margin-right: 50px"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
+        <div>
+          <br />
+          <div id="exhibitorleft">系统</div>
+          <div id="exhibitorright">
+            <el-select v-model="systemName" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </div>
+        </div>
       </el-col>
-      <el-col :span="6">
-        <span style="margin-right: 30px">交易名称</span>
-        <el-input
-          class="inputcenter"
-          placeholder="输入交易名称"
-          prefix-icon="el-icon-search"
-          v-model="tradeName"
-        >
-        </el-input>
+      <el-col :span="8">
+        <div>
+          <br />
+          <div id="exhibitorleft">交易名称</div>
+          <div id="exhibitorright">
+            <el-input
+              placeholder="输入交易名称"
+              prefix-icon="el-icon-search"
+              v-model="tradeName"
+              width="60px"
+            >
+            </el-input>
+          </div>
+        </div>
       </el-col>
-      <el-col :span="2">
-        <el-button icon="el-icon-search" type="primary">查询规则</el-button>
-      </el-col>
-      <el-col :span="2">
+      <el-col :span="4">
+        <br />
         <el-upload
           class="upload-demo"
           action=""
@@ -40,13 +44,14 @@
           :file-list="fileListUpload"
           :auto-upload="false"
         >
-          <el-button icon="el-icon-folder-add" type="success"
+          <el-button icon="el-icon-folder-add" type="primary"
             >点击导入</el-button
           >
         </el-upload>
       </el-col>
-      <el-col :span="2">
+      <el-col :span="4">
         <el-button
+          style="margin-top: 20px"
           icon="el-icon-share"
           type="success"
           @click="uploadHmlFile"
@@ -79,7 +84,6 @@ export default {
           value: "香港掌银",
           label: "香港掌银",
         },
-
       ],
       systemName: "",
       tradeName: "",
@@ -88,7 +92,7 @@ export default {
       fileTemp: null, //
       tableData: [],
       tableLoading: false,
-      loading:false
+      loading: false,
     };
   },
   methods: {
@@ -137,36 +141,38 @@ export default {
       //var formData = new FormData();
 
       this.$axios({
-        methods:"get",
-         headers: {
-      "content-type": "application/json", // 默认值
-      Authorization: "Bearer " + sessionStorage.getItem("access_token"),
-    },
-    url: ip,
-    params: {
-      'systemName':that.systemName,
-      'tradeName':that.tradeName,
-      'uplodahmlPath':hmlpath
-    },
-    responseType: "blob",
-    }).then(function (res) {
-      let blob = new Blob([res.data]); // { type: "application/vnd.ms-excel" }
-      let url = window.URL.createObjectURL(blob); // 创建一个临时的url指向blob对象
-      // 创建url之后可以模拟对此文件对象的一系列操作，例如：预览、下载
-      let a = document.createElement("a");
-      a.href = url;
-      a.download = "测试用例.xlsx";
-      a.click();
-      // 释放这个临时的对象url
-      window.URL.revokeObjectURL(url);
-      that.loading=false;
-      that.$message.success("用例生成成功，下载中!")
-    })
-    .catch(function (res) {
-      console.log("error", res);
-    });
+        methods: "get",
+        headers: {
+          "content-type": "application/json", // 默认值
+          Authorization: "Bearer " + sessionStorage.getItem("access_token"),
+        },
+        url: ip,
+        params: {
+          systemName: that.systemName,
+          tradeName: that.tradeName,
+          uplodahmlPath: hmlpath,
+        },
+        responseType: "blob",
+      })
+        .then(function (res) {
+          let blob = new Blob([res.data]); // { type: "application/vnd.ms-excel" }
+          let url = window.URL.createObjectURL(blob); // 创建一个临时的url指向blob对象
+          // 创建url之后可以模拟对此文件对象的一系列操作，例如：预览、下载
+          let a = document.createElement("a");
+          a.href = url;
+          a.download = "测试用例.xlsx";
+          a.click();
+          // 释放这个临时的对象url
+          window.URL.revokeObjectURL(url);
+          that.loading = false;
+          that.$message.success("用例生成成功，下载中!");
+        })
+        .catch(function (res) {
+          that.$message.error("网络请求异常!");
+          console.log("error", res);
+        });
 
-/*
+      /*
       formData.append("systemName", this.systemName);
       formData.append("tradeName", this.tradeName);
       formData.append("uplodahmlPath", hmlpath);
@@ -199,7 +205,7 @@ export default {
           },
         })
         .then(function (res) {
-          that.loading = true
+          that.loading = true;
           that.CreateCase(res.data);
           console.log(res);
           if (res.status == 200) {
@@ -226,14 +232,15 @@ export default {
 }
 #exhibitorleft {
   float: left;
-  top: 50%;
   width: 30%;
+  height: 100%;
+  margin-top: 10px;
 }
 #exhibitorright {
   float: left;
   width: 70%;
+  height: 100%;
 }
-
 .inputcenter {
   position: relative;
   display: inline-block;

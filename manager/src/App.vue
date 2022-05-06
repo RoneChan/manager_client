@@ -53,7 +53,7 @@
               <el-menu-item index="/ImportRule3">测试规则导出</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-
+<!--
  <el-submenu index="4">
             <template slot="title"><i class="el-icon-setting"></i>Graphwalker维护</template>
             <el-menu-item-group>
@@ -62,12 +62,13 @@
               <el-menu-item index="/GraphwalkerImport">测试规则导出</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          -->
           <el-submenu index="5">
             <template slot="title"><i class="el-icon-setting"></i>测试用例自动生成</template>
             <el-menu-item-group>
               <el-menu-item index="/RuleGenerateTestCase">规则资产生成用例</el-menu-item><!--通过调用PICT生成用例-->
               <el-menu-item index="/GraphGenerateTestCase">流程状态图生成用例</el-menu-item><!--通过调用Graphwalker生成用例-->
-              <el-menu-item index="/TestCaseExcDownload">用例文件下载</el-menu-item>
+              <el-menu-item index="/TestCaseExcDownload">文件下载</el-menu-item>
               <el-menu-item index="/ResultMatchConfig">结果映射字典维护</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
