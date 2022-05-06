@@ -37,11 +37,7 @@
             </div>
 
           </el-row>
-        <el-table
-          id="showScore_table"
-          :data="testRule"
-          stripe
-          style="width: 100%">
+        <el-table :data="testRule" stripe style="width: 100%">
           <el-table-column
             prop="systemVersion"
             label="系统"
@@ -173,17 +169,23 @@ export default {
       console.log(this.tradeName);
       console.log("YYYYYYYYYYYYY");
       getTestRules(this.systemVersion, this.tradeName).then(res => {
-          this.testRule = res.data.data
+          this.testCRule = res.data.data
       })
     },
 
     testRules() {
+      var that = this;
       console.log("begin to generate TestCase");
       console.log(this.systemVersion);
       console.log(this.tradeName);
       console.log("YYYYYYYYYYYYY");
       generateTestCaseByPICT(this.systemVersion, this.tradeName).then(res =>{
         this.value = res.data.data
+        that.$message({
+          showClose: true,
+          message: "生成的文件路径:"+res.data,
+          type: 'success'
+        });
       })
     },
 
