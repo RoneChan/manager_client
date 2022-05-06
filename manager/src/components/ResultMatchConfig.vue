@@ -48,7 +48,7 @@
           <el-dialog title="添加映射字典" :visible.sync="dialogFormVisible">
             <el-form :model="form">
               <el-form-item label="系统" :label-width="formLabelWidth">
-                <el-select id="addsys" v-model="form.matchingResultKey" placeholder="请选择系统">
+                <el-select id="addsys" v-model="form.systemName" placeholder="请选择系统">
                   <el-option label="PAIC" value="PAIC"></el-option>
                   <el-option label="AMTP" value="AMTP"></el-option>
                   <el-option label="香港网银" value="香港网银"></el-option>
@@ -56,7 +56,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="匹配关键字" :label-width="formLabelWidth">
-                <el-input v-model="form.systemName" autocomplete="off"></el-input>
+                <el-input v-model="form.matchingResultKey" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="预期结果详细描述" :label-width="formLabelWidth">
                 <el-input type="textarea"
@@ -116,6 +116,8 @@
 </template>
 
 <script>
+import {addMatchConfig} from "../api/get";
+
 export default {
   name: "ResultMatchConfig",
   data() {
@@ -169,8 +171,8 @@ export default {
       this.$message({
         message:'添加结果映射成功！',
         type: 'success'});
-      addMatchConfig(form.systemName,form.matchingResultKey,form.resultDetailDes).then(res => {
-        this.testRule = res.data.data
+      addMatchConfig(this.form.systemName,this.form.matchingResultKey,this.form.resultDetailDes, this.form.userName).then(res => {
+        this.resultMatchDictionary = res.data.data
       })
     },
   },
