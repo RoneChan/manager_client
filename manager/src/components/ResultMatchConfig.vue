@@ -45,7 +45,7 @@
         <div>
 <!--          <el-button  type="success" icon="el-icon-edit" v-on:click="addResultDetail">添加映射</el-button>-->
           <el-button  type="success" icon="el-icon-edit" v-on:click="dialogFormVisible = true">添加映射</el-button>
-          <el-dialog title="添加映射字典" :visible.sync="dialogFormVisible">
+          <el-dialog title="添加映射字典" :visible.sync="dialogFormVisible" width="45%">
             <el-form :model="form">
               <el-form-item label="系统" :label-width="formLabelWidth">
                 <el-select id="addsys" v-model="form.systemName" placeholder="请选择系统">
@@ -75,11 +75,11 @@
         </div>
         <el-table
           id="showScore_table"
-          :data="resultDetail"
+          :data="resultMatchDictionary"
           stripe
           style="width: 100%">
           <el-table-column
-            prop="systemVersion"
+            prop="systemName"
             label="系统"
             width="130">
           </el-table-column>
@@ -91,7 +91,7 @@
           <el-table-column
             prop="resultDetailDes"
             label="预期结果详细描述"
-            width="200">
+            width="250">
           </el-table-column>
           <el-table-column
             prop="userName"
@@ -117,6 +117,8 @@
 
 <script>
 import {addMatchConfig} from "../api/get";
+import {getResultDetails} from "../api/get";
+
 
 export default {
   name: "ResultMatchConfig",
@@ -175,6 +177,17 @@ export default {
         this.resultMatchDictionary = res.data.data
       })
     },
+
+    getResultDetails() {
+      console.log("getResultDetails!!!");
+      console.log("YYYYYYYYYYYYY");
+      this.$message({
+        message:'查询结果映射成功！',
+        type: 'success'});
+      getResultDetails(this.systemName).then(res => {
+        this.resultMatchDictionary = res.data.data
+      })
+    }
   },
 }
 </script>
@@ -223,11 +236,11 @@ export default {
 #addsys {
   margin-left: 10px;
 }
-.el-dialog__footer {
-  padding: 10px 20px 50px;
+.dialog-footer {
+  padding: 10px 20px 40px;
 }
 
-.el-dialog__body {
+.dialog-body {
   padding: 30px 50px;
 }
 </style>

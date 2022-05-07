@@ -53,6 +53,16 @@ export function addMatchConfig(systemName,matchingResultKey,resultDetailDes, use
     }
   })
 }
+
+//获取结果映射字典
+export function getResultDetails(systemName) {
+  return service.get('/resultMatchConfig/getResultDetails', {
+    headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemName: systemName
+    }
+  })
+}
 //获取测试规则
 export function getTestRules(systemVersion, tradeName) {
   return service.get('/ruleGenerateTestCase/getTestRules', {
