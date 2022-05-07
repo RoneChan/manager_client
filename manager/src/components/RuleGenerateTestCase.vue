@@ -169,7 +169,7 @@ export default {
       console.log(this.tradeName);
       console.log("YYYYYYYYYYYYY");
       getTestRules(this.systemVersion, this.tradeName).then(res => {
-          this.testCRule = res.data.data
+          this.testRule = res.data.data
       })
     },
 

@@ -45,10 +45,10 @@
         <div>
 <!--          <el-button  type="success" icon="el-icon-edit" v-on:click="addResultDetail">添加映射</el-button>-->
           <el-button  type="success" icon="el-icon-edit" v-on:click="dialogFormVisible = true">添加映射</el-button>
-          <el-dialog title="添加映射字典" :visible.sync="dialogFormVisible">
+          <el-dialog title="添加映射字典" :visible.sync="dialogFormVisible" width="45%">
             <el-form :model="form">
               <el-form-item label="系统" :label-width="formLabelWidth">
-                <el-select id="addsys" v-model="form.matchingResultKey" placeholder="请选择系统">
+                <el-select id="addsys" v-model="form.systemName" placeholder="请选择系统">
                   <el-option label="PAIC" value="PAIC"></el-option>
                   <el-option label="AMTP" value="AMTP"></el-option>
                   <el-option label="香港网银" value="香港网银"></el-option>
@@ -56,7 +56,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="匹配关键字" :label-width="formLabelWidth">
-                <el-input v-model="form.systemName" autocomplete="off"></el-input>
+                <el-input v-model="form.matchingResultKey" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="预期结果详细描述" :label-width="formLabelWidth">
                 <el-input type="textarea"
@@ -75,11 +75,11 @@
         </div>
         <el-table
           id="showScore_table"
-          :data="resultDetail"
+          :data="resultMatchDictionary"
           stripe
           style="width: 100%">
           <el-table-column
-            prop="systemVersion"
+            prop="systemName"
             label="系统"
             width="130">
           </el-table-column>
@@ -91,7 +91,7 @@
           <el-table-column
             prop="resultDetailDes"
             label="预期结果详细描述"
-            width="200">
+            width="250">
           </el-table-column>
           <el-table-column
             prop="userName"
@@ -116,6 +116,10 @@
 </template>
 
 <script>
+import {addMatchConfig} from "../api/get";
+import {getResultDetails} from "../api/get";
+
+
 export default {
   name: "ResultMatchConfig",
   data() {
@@ -169,10 +173,21 @@ export default {
       this.$message({
         message:'添加结果映射成功！',
         type: 'success'});
-      addMatchConfig(form.systemName,form.matchingResultKey,form.resultDetailDes).then(res => {
-        this.testRule = res.data.data
+      addMatchConfig(this.form.systemName,this.form.matchingResultKey,this.form.resultDetailDes, this.form.userName).then(res => {
+        this.resultMatchDictionary = res.data.data
       })
     },
+
+    getResultDetails() {
+      console.log("getResultDetails!!!");
+      console.log("YYYYYYYYYYYYY");
+      this.$message({
+        message:'查询结果映射成功！',
+        type: 'success'});
+      getResultDetails(this.systemName).then(res => {
+        this.resultMatchDictionary = res.data.data
+      })
+    }
   },
 }
 </script>
@@ -221,11 +236,11 @@ export default {
 #addsys {
   margin-left: 10px;
 }
-.el-dialog__footer {
-  padding: 10px 20px 50px;
+.dialog-footer {
+  padding: 10px 20px 40px;
 }
 
-.el-dialog__body {
+.dialog-body {
   padding: 30px 50px;
 }
 </style>

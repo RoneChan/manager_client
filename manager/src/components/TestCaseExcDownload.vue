@@ -177,11 +177,16 @@ export default {
       });
     },
     downloadFile(index) {
+      //TODO-mucheng
       let url = this.fileData[index].savePath;
+      console.log(url);
       const a = document.createElement("a");
       a.href = url;
       a.click(); // 点击下载
       // document.body.removeChild(a) // 下载完成移除元素=
+      this.$alert('文件路径：'+url,'文件下载成功',{
+        confirmButtonText: '确定',
+      });
     },
   },
 };

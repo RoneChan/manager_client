@@ -40,6 +40,29 @@ export function generateTestCaseByPICT(systemVersion, tradeName) {
     }
    })
 }
+
+//添加结果映射字典信息
+export function addMatchConfig(systemName,matchingResultKey,resultDetailDes, userName) {
+  return service.get('/resultMatchConfig/addMatchConfig', {
+    headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemName: systemName,
+      matchingResultKey: matchingResultKey,
+      resultDetailDes: resultDetailDes,
+      userName: userName
+    }
+  })
+}
+
+//获取结果映射字典
+export function getResultDetails(systemName) {
+  return service.get('/resultMatchConfig/getResultDetails', {
+    headers: { 'Content-Type': 'application/json' },
+    params: {
+      systemName: systemName
+    }
+  })
+}
 //获取测试规则
 export function getTestRules(systemVersion, tradeName) {
   return service.get('/ruleGenerateTestCase/getTestRules', {
